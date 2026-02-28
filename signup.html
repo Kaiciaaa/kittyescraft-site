@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from kittenscraft.com/signup by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:51 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - KittensCraft</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--bg-pink), #fff);
+        }
+        .signup-card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            border: 2px solid var(--light-pink);
+        }
+        .signup-header h2 {
+            font-size: 42px;
+            color: var(--dark-pink);
+            margin: 0 0 10px;
+        }
+        .signup-header p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: var(--primary-pink);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.1);
+        }
+        .signup-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 50px;
+            font-size: 20px;
+        }
+        
+        /* Modal Override for this page */
+        #ingame-alert-modal .modal-content {
+            border-top: 5px solid var(--primary-pink);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">LOADING...</div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar animate__animated animate__fadeInDown">
+        <div class="nav-brand">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                <img src="images/logo.png" alt="Logo" class="nav-logo wobble-hover">
+                <div class="online-status">
+                    <span class="status-dot"></span>
+                    <span>Online: <b id="player-count">154</b></span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="hvr-underline-from-center">Home</a>
+            <a href="leaderboard.html" class="hvr-underline-from-center">Leaderboard</a>
+            <a href="shop.html" class="hvr-underline-from-center">Shop</a>
+            <a href="gallery.html" class="hvr-underline-from-center">Gallery</a>
+            <a href="index.html#download" class="hvr-underline-from-center">Download</a>
+            <a href="index.html#faq" class="hvr-underline-from-center">FAQ</a>
+        </div>
+        <div class="nav-actions">
+            <!-- Active state for Sign Up -->
+            <a href="signup.html" class="btn btn-small btn-primary pulse-effect">Sign Up Now!</a>
+        </div>
+    </nav>
+
+    <!-- Sign Up Form -->
+    <div class="signup-container particle-bg liquid-bg">
+        <div class="signup-card animate__animated animate__zoomIn glass-enhanced-v2 hover-scale-shadow scroll-reveal-enhanced">
+            <div class="signup-header">
+                <h2 class="pixel-text gradient-text-animated neon-glow-pink">Join the Family</h2>
+                <p class="fade-in-up">Create your account to start your adventure! ✨</p>
+            </div>
+            
+            <form id="signup-form">
+                <div class="form-group scroll-reveal-enhanced stagger-1">
+                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" placeholder="hellokity@kittenscraft.com" required class="hover-lift">
+                </div>
+                
+                <div class="form-group scroll-reveal-enhanced stagger-2">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" placeholder="KittenLover123" required class="hover-lift">
+                </div>
+                
+                <div class="form-group scroll-reveal-enhanced stagger-3">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" placeholder="••••••••" required class="hover-lift">
+                </div>
+                
+                <div class="form-group scroll-reveal-enhanced stagger-4">
+                    <label><i class="fas fa-lock"></i> Confirm Password</label>
+                    <input type="password" placeholder="••••••••" required class="hover-lift">
+                </div>
+
+                <button type="submit" class="btn btn-primary signup-btn btn-enhanced ripple-effect hover-lift pulse-effect">Create Account</button>
+            </form>
+            
+            <p style="margin-top: 20px; font-size: 14px; color: var(--text-light);">
+                Already have an account? <a href="login.html" style="color: var(--dark-pink); font-weight: bold;">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 320">
+                <path fill="#2d3436" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="pixel-text">KittensCraft</h3>
+                <p>The Sweetest Minecraft SMP Server</p>
+            </div>
+            <div class="footer-links">
+                <h4>Information</h4>
+                <a href="index.html#features">Features</a>
+                <a href="shop.html">Store</a>
+                <a href="index.html#download">Download</a>
+                <a href="index.html#faq">Support</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="legal.html#tos">Terms of Service</a>
+                <a href="legal.html#privacy">Privacy Policy</a>
+                <a href="legal.html#rules">Rules</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KittensCraft. Not affiliated with Mojang Studios.</p>
+        </div>
+    </footer>
+
+    <!-- In-Game Alert Modal -->
+    <div id="ingame-alert-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-gamepad modal-icon"></i>
+                <h3 class="pixel-text">Registration Info</h3>
+                <p>For security reasons, account registration can only be completed <strong>in-game</strong> through our custom launcher.</p>
+                <p style="font-size: 14px; background: #eee; padding: 10px; border-radius: 10px;">
+                    Please download the launcher and register inside the server (in-game)!
+                </p>
+                <a href="index.html#download" class="btn btn-primary btn-modal-action">Download Launcher</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="site-script.js"></script>
+    <script>
+        // Specific logic for signup page
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Show the modal
+            document.getElementById('ingame-alert-modal').style.display = 'block';
+        });
+
+        // Signup Modal Logic
+        const signupModal = document.getElementById('ingame-alert-modal');
+        const signupClose = signupModal.querySelector('.close-modal');
+        const signupModalContent = signupModal.querySelector('.modal-content');
+        const signupActionBtn = signupModal.querySelector('.btn-modal-action');
+
+        // Close modal on X button click
+        signupClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            signupModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        signupModal.addEventListener('click', function(event) {
+            if (event.target === signupModal) {
+                signupModal.style.display = 'none';
+            }
+        });
+
+        // Prevent modal content clicks from closing modal
+        signupModalContent.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && signupModal.style.display === 'block') {
+                signupModal.style.display = 'none';
+            }
+        });
+
+        // Action button closes modal
+        if (signupActionBtn) {
+            signupActionBtn.addEventListener('click', function(e) {
+                signupModal.style.display = 'none';
+            });
+        }
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v67327c56f0bb4ef8b305cae61679db8f1769101564043" integrity="sha512-rdcWY47ByXd76cbCFzznIcEaCN71jqkWBBqlwhF1SY7KubdLKZiEGeP7AyieKZlGP9hbY/MhGrwXzJC/HulNyg==" data-cf-beacon='{"version":"2024.11.0","token":"dee1020f13a94c9e860b1302043c3c3d","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from kittenscraft.com/signup by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:53 GMT -->
+</html>
+

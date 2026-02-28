@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from kittenscraft.com/login by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:57 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - KittensCraft</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--bg-pink), #fff);
+        }
+        .signup-card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            border: 2px solid var(--light-pink);
+        }
+        .signup-header h2 {
+            font-size: 42px;
+            color: var(--dark-pink);
+            margin: 0 0 10px;
+        }
+        .signup-header p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: var(--primary-pink);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.1);
+        }
+        .signup-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 50px;
+            font-size: 20px;
+        }
+        /* Error message style */
+        .error-message {
+            display: none;
+            color: #d32f2f;
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 1px solid #ffcdd2;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">LOADING...</div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar animate__animated animate__fadeInDown">
+        <div class="nav-brand">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                <img src="images/logo.png" alt="Logo" class="nav-logo wobble-hover">
+                <div class="online-status">
+                    <span class="status-dot"></span>
+                    <span>Online: <b id="player-count">154</b></span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="hvr-underline-from-center">Home</a>
+            <a href="leaderboard.html" class="hvr-underline-from-center">Leaderboard</a>
+            <a href="shop.html" class="hvr-underline-from-center">Shop</a>
+            <a href="gallery.html" class="hvr-underline-from-center">Gallery</a>
+            <a href="index.html#download" class="hvr-underline-from-center">Download</a>
+            <a href="index.html#faq" class="hvr-underline-from-center">FAQ</a>
+        </div>
+        <div class="nav-actions">
+            <!-- Active state for Login -->
+            <a href="signup.html" class="btn btn-small btn-primary pulse-effect">Sign Up Now!</a>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="signup-container">
+        <div class="signup-card animate__animated animate__zoomIn">
+            <div class="signup-header">
+                <h2 class="pixel-text">Welcome Back</h2>
+                <p>Login to manage your account.</p>
+            </div>
+            
+            <div id="login-error" class="error-message">
+                <i class="fas fa-exclamation-circle"></i> Invalid credentials. Please try again.
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username or Email</label>
+                    <input type="text" placeholder="KittenLover123" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary signup-btn">Login</button>
+            </form>
+            
+            <p style="margin-top: 20px; font-size: 14px; color: var(--text-light);">
+                Don't have an account? <a href="signup.html" style="color: var(--dark-pink); font-weight: bold;">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 320">
+                <path fill="#2d3436" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="pixel-text">KittensCraft</h3>
+                <p>The Sweetest Minecraft SMP Server</p>
+            </div>
+            <div class="footer-links">
+                <h4>Information</h4>
+                <a href="index.html#features">Features</a>
+                <a href="shop.html">Store</a>
+                <a href="index.html#download">Download</a>
+                <a href="index.html#faq">Support</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="legal.html#tos">Terms of Service</a>
+                <a href="legal.html#privacy">Privacy Policy</a>
+                <a href="legal.html#rules">Rules</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KittensCraft. Not affiliated with Mojang Studios.</p>
+        </div>
+    </footer>
+
+    <script src="site-script.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate processing
+            const btn = this.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Checking...';
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+
+            setTimeout(() => {
+                // Always show error
+                document.getElementById('login-error').style.display = 'block';
+                btn.innerText = originalText;
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }, 1000);
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v67327c56f0bb4ef8b305cae61679db8f1769101564043" integrity="sha512-rdcWY47ByXd76cbCFzznIcEaCN71jqkWBBqlwhF1SY7KubdLKZiEGeP7AyieKZlGP9hbY/MhGrwXzJC/HulNyg==" data-cf-beacon='{"version":"2024.11.0","token":"dee1020f13a94c9e860b1302043c3c3d","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from kittenscraft.com/login by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:58 GMT -->
+</html>
+

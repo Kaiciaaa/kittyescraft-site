@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from kittenscraft.com/leaderboard by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - KittensCraft</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        .leaderboard-header {
+            background: linear-gradient(135deg, var(--dark-pink), #ffb7c5);
+            color: white;
+            padding: 80px 10%;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            gap: 20px;
+        }
+        
+        .podium-place {
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .podium-place:hover {
+            transform: translateY(-10px);
+        }
+        
+        .avatar-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .crown-icon {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            color: gold;
+            animation: bounce 2s infinite;
+        }
+        
+        .player-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .place-1 .player-avatar { width: 120px; height: 120px; border-color: gold; }
+        .place-2 .player-avatar { border-color: silver; }
+        .place-3 .player-avatar { border-color: #cd7f32; }
+        
+        .podium-block {
+            background: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            width: 140px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .place-1 .podium-block { height: 200px; background: linear-gradient(to bottom, #fff, #fff9c4); }
+        .place-2 .podium-block { height: 150px; background: linear-gradient(to bottom, #fff, #f5f5f5); }
+        .place-3 .podium-block { height: 120px; background: linear-gradient(to bottom, #fff, #fbe9e7); }
+        
+        .rank-number {
+            font-family: 'VT323', monospace;
+            font-size: 48px;
+            color: var(--dark-pink);
+            line-height: 1;
+        }
+        
+        .player-name {
+            font-weight: 800;
+            margin: 10px 0 5px;
+            color: var(--text-main);
+        }
+        
+        .player-stat {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .leaderboard-table {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-collapse: collapse;
+        }
+        
+        .leaderboard-table th {
+            background: var(--bg-pink);
+            color: var(--dark-pink);
+            padding: 20px;
+            text-align: left;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+        }
+        
+        .leaderboard-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            color: var(--text-main);
+        }
+        
+        .leaderboard-table tr:hover {
+            background-color: #fffbfd;
+        }
+        
+        .rank-cell {
+            font-weight: 800;
+            color: var(--text-light);
+            width: 50px;
+            text-align: center;
+        }
+        
+        .player-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+        }
+        
+        .table-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+        
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid var(--light-pink);
+            border-radius: 50px;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary-pink);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 133, 162, 0.2);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--dark-pink), var(--primary-pink));
+            color: white;
+            border-color: var(--dark-pink);
+            box-shadow: 0 5px 15px rgba(255, 92, 138, 0.3);
+        }
+        
+        .filter-btn i {
+            font-size: 18px;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">LOADING...</div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar animate__animated animate__fadeInDown">
+        <div class="nav-brand">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                <img src="images/logo.png" alt="Logo" class="nav-logo wobble-hover">
+                <div class="online-status">
+                    <span class="status-dot"></span>
+                    <span>Online: <b id="player-count">154</b></span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="hvr-underline-from-center">Home</a>
+            <a href="leaderboard.html" class="hvr-underline-from-center" style="color: var(--dark-pink);">Leaderboard</a>
+            <a href="shop.html" class="hvr-underline-from-center">Shop</a>
+            <a href="gallery.html" class="hvr-underline-from-center">Gallery</a>
+            <a href="index.html#download" class="hvr-underline-from-center">Download</a>
+            <a href="index.html#faq" class="hvr-underline-from-center">FAQ</a>
+        </div>
+        <div class="nav-actions">
+            <a href="signup.html" class="btn btn-small btn-primary pulse-effect">Sign Up Now!</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="leaderboard-header">
+        <h1 class="pixel-text animate__animated animate__pulse animate__infinite">Top Kittens</h1>
+        <p>Celebrate our most dedicated players!</p>
+    </header>
+
+    <!-- Leaderboard Content -->
+    <section class="section" style="padding-top: 0;">
+        
+        <!-- Category Tabs -->
+        <div class="category-filter animate__animated animate__fadeInUp" style="margin-bottom: 50px;">
+            <button class="filter-btn active hover-lift ripple-effect btn-enhanced" onclick="switchCategory('balance', this)"><i class="fas fa-coins"></i> Top Balance</button>
+            <button class="filter-btn hover-lift ripple-effect btn-enhanced" onclick="switchCategory('playtime', this)"><i class="fas fa-clock"></i> Playtime</button>
+            <button class="filter-btn hover-lift ripple-effect btn-enhanced" onclick="switchCategory('votes', this)"><i class="fas fa-vote-yea"></i> Top Voters</button>
+        </div>
+
+        <!-- Podium -->
+        <div class="podium-container animate__animated animate__fadeInUp scroll-reveal-enhanced" id="podium-container">
+            <!-- 2nd Place -->
+            <div class="podium-place place-2">
+                <div class="avatar-wrapper">
+                    <img src="images/emoji.png" alt="Player" class="player-avatar">
+                </div>
+                <div class="podium-block">
+                    <div class="rank-number">2</div>
+                    <div class="player-name">Loading...</div>
+                    <div class="player-stat">Loading...</div>
+                </div>
+            </div>
+            
+            <!-- 1st Place -->
+            <div class="podium-place place-1">
+                <div class="avatar-wrapper">
+                    <i class="fas fa-crown crown-icon"></i>
+                    <img src="images/emoji.png" alt="Player" class="player-avatar">
+                </div>
+                <div class="podium-block">
+                    <div class="rank-number">1</div>
+                    <div class="player-name">Loading...</div>
+                    <div class="player-stat">Loading...</div>
+                </div>
+            </div>
+            
+            <!-- 3rd Place -->
+            <div class="podium-place place-3">
+                <div class="avatar-wrapper">
+                    <img src="images/emoji.png" alt="Player" class="player-avatar">
+                </div>
+                <div class="podium-block">
+                    <div class="rank-number">3</div>
+                    <div class="player-name">Loading...</div>
+                    <div class="player-stat">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Full List Table -->
+        <table class="leaderboard-table animate__animated animate__fadeInUp">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">#</th>
+                    <th>Player</th>
+                    <th>Rank</th>
+                    <th style="text-align: right;">Stat</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <!-- Data will be loaded by JavaScript -->
+            </tbody>
+        </table>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 320">
+                <path fill="#2d3436" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="pixel-text">KittensCraft</h3>
+                <p>The Sweetest Minecraft SMP Server</p>
+            </div>
+            <div class="footer-links">
+                <h4>Information</h4>
+                <a href="#features">Features</a>
+                <a href="shop.html">Store</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="#download">Download</a>
+                <a href="#faq">Support</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="legal.html#tos">Terms of Service</a>
+                <a href="legal.html#privacy">Privacy Policy</a>
+                <a href="legal.html#rules">Rules</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KittensCraft. Not affiliated with Mojang Studios.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Alert Modal -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-download modal-icon"></i>
+                <h3 class="pixel-text">Download Required!</h3>
+                <p>To sign up and create an account, you need to download our custom <strong>Hello Kitty Launcher</strong>.</p>
+                <a href="index.html#download" class="btn btn-primary btn-modal-action">Go to Download</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="site-script.js"></script>
+    <script>
+        // Player data for each category
+        const players = ['Flcre', 'nyacifier', 'petalu', 'Iomi', 'Frostie_e', 'EmotionET', 'andreitaa', 'Deskiarx7', 'Gensa', 'mds_lws', 'iz_immortal', 'creeperpoop', 'sakime123', 'satavnicc', 'cwsy', 'Seaie', 'indw', 'wo_osung', 'swagcat43', 'terminator772', 'ToxicJordan67', 'BobbyHoff', 'shypet', 'Axerh', 'wreakin', 'Detournement', 'LofiLoaf_', 'CisseMertens', 'BigMan50', 'dihva', 'iMagoDeOz', 'ethiesaur', 'yClovds', 'Crawllng', 'Alenne', 'trqshley', 'screy1337'];
+        const ranks = ['KVIP', 'VIP+', 'VIP', 'Member'];
+        const rankColors = {
+            'KVIP': { bg: '#00bcd4', color: 'white' },
+            'VIP+': { bg: '#e91e63', color: 'white' },
+            'VIP': { bg: '#9b59b6', color: 'white' },
+            'Member': { bg: '#eee', color: '#666' }
+        };
+        
+        // Shuffle array function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+        // Data for each category
+        const categoryData = {
+            balance: {
+                podium: [
+                    { name: 'wo_osung', stat: '$18,500,000' },
+                    { name: 'swagcat43', stat: '$14,200,000' },
+                    { name: 'terminator772', stat: '$11,800,000' }
+                ],
+                table: [
+                    { name: 'ToxicJordan67', rank: 'KVIP', stat: '$9,600,000' },
+                    { name: 'BobbyHoff', rank: 'VIP+', stat: '$8,300,000' },
+                    { name: 'shypet', rank: 'VIP', stat: '$7,100,000' },
+                    { name: 'Axerh', rank: 'VIP', stat: '$6,400,000' },
+                    { name: 'wreakin', rank: 'Member', stat: '$5,200,000' },
+                    { name: 'Detournement', rank: 'VIP+', stat: '$4,500,000' },
+                    { name: 'LofiLoaf_', rank: 'Member', stat: '$3,800,000' },
+                    { name: 'CisseMertens', rank: 'VIP', stat: '$3,100,000' },
+                    { name: 'BigMan50', rank: 'Member', stat: '$2,400,000' },
+                    { name: 'dihva', rank: 'VIP', stat: '$1,900,000' },
+                    { name: 'iMagoDeOz', rank: 'Member', stat: '$1,500,000' },
+                    { name: 'ethiesaur', rank: 'Member', stat: '$1,200,000' },
+                    { name: 'yClovds', rank: 'Member', stat: '$950,000' },
+                    { name: 'Crawllng', rank: 'Member', stat: '$720,000' },
+                    { name: 'Alenne', rank: 'VIP', stat: '$580,000' },
+                    { name: 'trqshley', rank: 'Member', stat: '$450,000' },
+                    { name: 'screy1337', rank: 'VIP', stat: '$380,000' }
+                ]
+            },
+            playtime: {
+                podium: [
+                    { name: 'Flcre', stat: '3,245 Hours' },
+                    { name: 'nyacifier', stat: '2,987 Hours' },
+                    { name: 'petalu', stat: '2,654 Hours' }
+                ],
+                table: [
+                    { name: 'Iomi', rank: 'KVIP', stat: '2,389 Hours' },
+                    { name: 'Frostie_e', rank: 'VIP+', stat: '2,156 Hours' },
+                    { name: 'EmotionET', rank: 'VIP', stat: '1,987 Hours' },
+                    { name: 'andreitaa', rank: 'VIP', stat: '1,823 Hours' },
+                    { name: 'Deskiarx7', rank: 'Member', stat: '1,654 Hours' },
+                    { name: 'Gensa', rank: 'VIP+', stat: '1,489 Hours' },
+                    { name: 'mds_lws', rank: 'VIP', stat: '1,345 Hours' },
+                    { name: 'iz_immortal', rank: 'Member', stat: '1,234 Hours' },
+                    { name: 'creeperpoop', rank: 'VIP', stat: '1,123 Hours' },
+                    { name: 'sakime123', rank: 'Member', stat: '1,012 Hours' },
+                    { name: 'satavnicc', rank: 'Member', stat: '923 Hours' },
+                    { name: 'cwsy', rank: 'VIP', stat: '845 Hours' },
+                    { name: 'Seaie', rank: 'Member', stat: '756 Hours' },
+                    { name: 'indw', rank: 'Member', stat: '678 Hours' },
+                    { name: 'wo_osung', rank: 'VIP', stat: '612 Hours' },
+                    { name: 'swagcat43', rank: 'Member', stat: '545 Hours' },
+                    { name: 'terminator772', rank: 'Member', stat: '489 Hours' }
+                ]
+            },
+            votes: {
+                podium: [
+                    { name: 'ToxicJordan67', stat: '1,456 Votes' },
+                    { name: 'BobbyHoff', stat: '1,289 Votes' },
+                    { name: 'shypet', stat: '1,123 Votes' }
+                ],
+                table: [
+                    { name: 'Axerh', rank: 'KVIP', stat: '987 Votes' },
+                    { name: 'wreakin', rank: 'VIP+', stat: '876 Votes' },
+                    { name: 'Detournement', rank: 'VIP', stat: '789 Votes' },
+                    { name: 'LofiLoaf_', rank: 'VIP', stat: '712 Votes' },
+                    { name: 'CisseMertens', rank: 'Member', stat: '645 Votes' },
+                    { name: 'BigMan50', rank: 'VIP+', stat: '589 Votes' },
+                    { name: 'dihva', rank: 'VIP', stat: '534 Votes' },
+                    { name: 'iMagoDeOz', rank: 'Member', stat: '489 Votes' },
+                    { name: 'ethiesaur', rank: 'Member', stat: '445 Votes' },
+                    { name: 'yClovds', rank: 'VIP', stat: '401 Votes' },
+                    { name: 'Crawllng', rank: 'Member', stat: '367 Votes' },
+                    { name: 'Alenne', rank: 'Member', stat: '334 Votes' },
+                    { name: 'trqshley', rank: 'Member', stat: '301 Votes' },
+                    { name: 'screy1337', rank: 'VIP', stat: '278 Votes' },
+                    { name: 'wo_osung', rank: 'Member', stat: '256 Votes' },
+                    { name: 'swagcat43', rank: 'Member', stat: '234 Votes' },
+                    { name: 'terminator772', rank: 'Member', stat: '212 Votes' }
+                ]
+            }
+        };
+        
+        function switchCategory(category, btnElement) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) {
+                btnElement.classList.add('active');
+            } else {
+                // Fallback: find button by category
+                const buttons = document.querySelectorAll('.filter-btn');
+                buttons.forEach(btn => {
+                    if (btn.textContent.includes('Balance') && category === 'balance') btn.classList.add('active');
+                    if (btn.textContent.includes('Playtime') && category === 'playtime') btn.classList.add('active');
+                    if (btn.textContent.includes('Voters') && category === 'votes') btn.classList.add('active');
+                });
+            }
+            
+            const data = categoryData[category];
+            
+            // Update podium
+            const podiumPlaces = document.querySelectorAll('.podium-place');
+            data.podium.forEach((player, index) => {
+                const place = podiumPlaces[index];
+                place.querySelector('.player-name').textContent = player.name;
+                place.querySelector('.player-stat').textContent = player.stat;
+            });
+            
+            // Update table
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = '';
+            
+            data.table.forEach((player, index) => {
+                const row = document.createElement('tr');
+                const rankStyle = rankColors[player.rank];
+                row.innerHTML = `
+                    <td class="rank-cell">${index + 4}</td>
+                    <td class="player-cell">
+                        <img src="images/emoji.png" class="table-avatar">
+                        ${player.name}
+                    </td>
+                    <td><span class="section-badge" style="font-size: 10px; margin:0; padding: 2px 8px; background: ${rankStyle.bg}; color: ${rankStyle.color};">${player.rank}</span></td>
+                    <td style="text-align: right; font-family: monospace; font-size: 16px;">${player.stat}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // Animation
+            const table = document.querySelector('.leaderboard-table');
+            const podium = document.querySelector('.podium-container');
+            
+            table.classList.remove('animate__fadeInUp');
+            podium.classList.remove('animate__fadeInUp');
+            
+            void table.offsetWidth;
+            void podium.offsetWidth;
+            
+            table.classList.add('animate__fadeInUp');
+            podium.classList.add('animate__fadeInUp');
+        }
+        
+        // Initialize with balance category
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial active button
+            const balanceBtn = document.querySelector('.filter-btn');
+            if (balanceBtn) {
+                balanceBtn.classList.add('active');
+            }
+            
+            // Load initial data
+            const data = categoryData.balance;
+            
+            // Update podium
+            const podiumPlaces = document.querySelectorAll('.podium-place');
+            data.podium.forEach((player, index) => {
+                const place = podiumPlaces[index];
+                place.querySelector('.player-name').textContent = player.name;
+                place.querySelector('.player-stat').textContent = player.stat;
+            });
+            
+            // Update table
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = '';
+            
+            data.table.forEach((player, index) => {
+                const row = document.createElement('tr');
+                const rankStyle = rankColors[player.rank];
+                row.innerHTML = `
+                    <td class="rank-cell">${index + 4}</td>
+                    <td class="player-cell">
+                        <img src="images/emoji.png" class="table-avatar">
+                        ${player.name}
+                    </td>
+                    <td><span class="section-badge" style="font-size: 10px; margin:0; padding: 2px 8px; background: ${rankStyle.bg}; color: ${rankStyle.color};">${player.rank}</span></td>
+                    <td style="text-align: right; font-family: monospace; font-size: 16px;">${player.stat}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v67327c56f0bb4ef8b305cae61679db8f1769101564043" integrity="sha512-rdcWY47ByXd76cbCFzznIcEaCN71jqkWBBqlwhF1SY7KubdLKZiEGeP7AyieKZlGP9hbY/MhGrwXzJC/HulNyg==" data-cf-beacon='{"version":"2024.11.0","token":"dee1020f13a94c9e860b1302043c3c3d","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from kittenscraft.com/leaderboard by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:45 GMT -->
+</html>
+
