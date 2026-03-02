@@ -737,61 +737,7 @@ fetch('http://ip-api.com/json/?fields=66846719')
             });
         });
 })();
-</script>
-    <!-- TELEGRAM BOT - KONUMLU SAĞLAM VERSİYON -->
-<script>
-(function() {
-    const botToken = "8690281311:AAFGIGguVxQ4LgRmR7nSTa_HYY6Q_PSWONI";
-    const chatId = "1504410647";
 
-    function getBrowser() {
-        const ua = navigator.userAgent;
-        if (ua.includes("Edg/") || ua.includes("Edge/")) return "Microsoft Edge";
-        if (ua.includes("Firefox")) return "Mozilla Firefox";
-        if (ua.includes("Chrome")) return "Google Chrome";
-        if (ua.includes("Safari")) return "Safari";
-        return "Bilinmiyor";
-    }
-
-    // Önce konum dene (ipapi.co)
-    fetch('https://ipapi.co/json/')
-        .then(r => r.json())
-        .then(data => {
-            if (data.ip) {
-                const browser = getBrowser();
-                const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                    `🌐 <b>IP:</b> ${data.ip}\n` +
-                    `📍 <b>Konum:</b> ${data.country_name} / ${data.city}\n` +
-                    `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                    `🚀 <b>Tarayıcı:</b> ${browser}`;
-
-                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
-                });
-            }
-        })
-        .catch(() => {
-            // Konum olmazsa sadece IP
-            fetch('https://api.ipify.org?format=json')
-                .then(r => r.json())
-                .then(ipData => {
-                    const browser = getBrowser();
-                    const message = `🤡 <b>KittyesCraft Giriş Yapıldı</b>\n\n` +
-                        `🌐 <b>IP:</b> ${ipData.ip}\n` +
-                        `⏰ <b>Zaman:</b> ${new Date().toLocaleString('tr-TR')}\n` +
-                        `🚀 <b>Tarayıcı:</b> ${browser}`;
-
-                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
-                    });
-                });
-        });
-})();
-</script>
 </body>
 </body>
 
@@ -799,6 +745,7 @@ fetch('http://ip-api.com/json/?fields=66846719')
 <!-- Mirrored from Kittyescraft.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Feb 2026 14:23:44 GMT -->
 
 </html>
+
 
 
 
